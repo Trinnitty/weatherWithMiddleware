@@ -34,6 +34,9 @@ class App extends PureComponent {
               let city = jsonData.region_name.split(" ")[1].toUpperCase();
               this.searchWeatherForCity(city);
             }
+            if(jsonData.error){
+              this.setState({ error: true });
+            }
           })
           .catch(error => {
             this.setState({ error: true });
@@ -52,12 +55,10 @@ class App extends PureComponent {
       loadedCityWeatherOpenweathermap,
       loadedCityWeatherMetaweather
     } = this.props;
-
+   if(this.state.error){
+    this.setState({ error: false });
+   }
     if (weatherServise === "Openweathermap") {
-      console.log(
-        loadedCityWeatherOpenweathermap,
-        "loadedCityWeatherOpenweathermap"
-      );
       if (loadedCityWeatherOpenweathermap[city]) {
         console.log("current city weather excist");
         if (
@@ -66,7 +67,6 @@ class App extends PureComponent {
           2
         ) {
           let cityWeather = loadedCityWeatherOpenweathermap[city];
-          console.log(cityWeather, "cityWeather");
           prevWeatherAction(cityWeather);
         } else {
           setWeatherAction(city, weatherServise);
@@ -76,10 +76,6 @@ class App extends PureComponent {
       }
     }
     if (weatherServise === "MetaWeather") {
-      console.log(
-        loadedCityWeatherMetaweather,
-        "loadedCityWeatherOpenweathermap"
-      );
       if (loadedCityWeatherMetaweather[city]) {
         console.log("current city weather excist");
         if (
@@ -88,7 +84,6 @@ class App extends PureComponent {
           2
         ) {
           let cityWeather = loadedCityWeatherMetaweather[city];
-          console.log(cityWeather, "cityWeather");
           prevWeatherAction(cityWeather);
         } else {
           setWeatherAction(city, weatherServise);
@@ -105,7 +100,6 @@ class App extends PureComponent {
     const { weatherServise } = this.props.weatherServise;
     const { weather } = this.props.weather;
     const { isFetching, error } = this.props.weather;
-    console.log(this.props.weather.weather.city, "props");
     return (
       <div
         className={

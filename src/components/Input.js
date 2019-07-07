@@ -14,7 +14,7 @@ export default function Input(props) {
     <Fragment>
       <input ref={inputEl} type="text" placeholder={"Enter city"} />
       <button onClick={onButtonClick}>
-        <i className="fa fa-spinner fa-spin">find</i>
+        find
       </button>
     </Fragment>
   );

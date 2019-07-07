@@ -32,11 +32,11 @@ export function weatherReducer(state = initialState, action) {
         }
       };
     case "WEATHER_SUCCESS":
-      return { ...state, isFetching: false, weather: action.payload };
+      return { ...state, isFetching: false, error: false, weather: action.payload };
     case "WEATHER_FAIL":
       return { ...state, isFetching: false, error: action.payload.message };
     case "WEATHER_PREV":
-      return { ...state, weather: action.payload };
+      return { ...state, weather: action.payload, error:false };
     default:
       return state;
   }
