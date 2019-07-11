@@ -20,18 +20,22 @@ class App extends PureComponent {
     const { city } = this.props.weather.weather;
     // if first enter on the app
     if (!city) {
+      console.log('request for city');
       //avoid  block of fetch data
       setTimeout(
         LocationService.getIp()
           .then(response => response.json())
           .then(jsonData => {
+            console.log(jsonData.ip,'jsonData.ip');
             return jsonData.ip;
           })
           .then(data => LocationService.getCity(data))
           .then(responce => responce.json())
           .then(jsonData => {
-            if (jsonData.region_name) {
-              let city = jsonData.region_name.split(" ")[1].toUpperCase();
+            console.log(jsonData,'jsonData')
+            if (jsonData.city_name) {
+              let city = jsonData.city_name.toUpperCase();
+              console.log(city,'city')
               this.searchWeatherForCity(city);
             }
             if(jsonData.error){
